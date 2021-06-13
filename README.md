@@ -9,6 +9,7 @@ Python CLI tool that exports all of your Spotify playlists and/or liked songs in
 
 ## usage
 - get your Spotify OAuth Token [here](https://developer.spotify.com/web-api/console/get-playlists/)
+    - required scopes: `user-read-private`, `user-library-read`, `playlist-read-private`
 - execute `spotify-backup <OUTPUT FILE> --dump playlists,liked --token <YOUR TOKEN>`
     - example: `spotify-backup my_backup.csv --dump playlists,liked --token SOME_VERY_LONG_TOKEN`
 
