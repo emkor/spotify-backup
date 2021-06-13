@@ -64,9 +64,7 @@ class SpotifyAPI:
                 "response_type": "token",
                 "client_id": client_id,
                 "scope": scope,
-                "redirect_uri": "http://127.0.0.1:{}/redirect".format(
-                    SpotifyAPI._SERVER_PORT
-                ),
+                "redirect_uri": "http://127.0.0.1:{}/redirect".format(SpotifyAPI._SERVER_PORT),
             }
         )
         logging.info(f"Logging in (click if it doesn't open automatically): {url}")
@@ -86,9 +84,7 @@ class SpotifyAPI:
 
     class _AuthorizationServer(http.server.HTTPServer):
         def __init__(self, host, port):
-            http.server.HTTPServer.__init__(
-                self, (host, port), SpotifyAPI._AuthorizationHandler
-            )
+            http.server.HTTPServer.__init__(self, (host, port), SpotifyAPI._AuthorizationHandler)
 
         # Disable the default error handling.
         def handle_error(self, request, client_address):
@@ -102,18 +98,14 @@ class SpotifyAPI:
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html")
                 self.end_headers()
-                self.wfile.write(
-                    b'<script>location.replace("token?" + location.hash.slice(1));</script>'
-                )
+                self.wfile.write(b'<script>location.replace("token?" + location.hash.slice(1));</script>')
 
             # Read access_token and use an exception to kill the server listening...
             elif self.path.startswith("/token?"):
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html")
                 self.end_headers()
-                self.wfile.write(
-                    b"<script>close()</script>Thanks! You may now close this window."
-                )
+                self.wfile.write(b"<script>close()</script>Thanks! You may now close this window.")
 
                 access_token = re.search("access_token=([^&]*)", self.path).group(1)
                 logging.info(f"Received access token from Spotify: {access_token}")

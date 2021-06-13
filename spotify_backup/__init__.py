@@ -11,11 +11,7 @@ OAUTH_TOKEN_ENV_VAR = "SPOTIFY_OAUTH_TOKEN"
 
 
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Exports your Spotify playlists. By default, opens a browser window "
-        "to authorize the Spotify Web API, but you can also manually specify "
-        "an OAuth token with the --token option."
-    )
+    parser = argparse.ArgumentParser(description="Exports your Spotify playlists and/or Liked songs to CSV file.")
     parser.add_argument("file", help="output filename")
     parser.add_argument(
         "--token",
@@ -33,9 +29,7 @@ def _parse_args() -> argparse.Namespace:
         choices=["liked,playlists", "playlists,liked", "playlists", "liked"],
         help="dump playlists or liked songs, or both (default: playlists)",
     )
-    parser.add_argument(
-        "-d", "--debug", action="store_true", help="Enable more verbose logging"
-    )
+    parser.add_argument("-d", "--debug", action="store_true", help="Enable more verbose logging")
     return parser.parse_args()
 
 
@@ -51,9 +45,7 @@ def _to_csv_row(
             track["track"]["name"],
         )
     except KeyError:
-        logging.warning(
-            f"Could not translate playlist {playlist} and track {track} to CSV row, continuing"
-        )
+        logging.warning(f"Could not translate playlist {playlist} and track {track} to CSV row, continuing")
         return None
 
 
@@ -82,27 +74,19 @@ def main():
     # List liked songs
     if "liked" in args.dump:
         logging.info("Loading liked songs...")
-        liked_tracks = spotify.list(
-            "users/{user_id}/tracks".format(user_id=me["id"]), {"limit": 50}
-        )
+        liked_tracks = spotify.list("users/{user_id}/tracks".format(user_id=me["id"]), {"limit": 50})
         playlists += [{"name": "Liked Songs", "tracks": liked_tracks}]
 
     # List all playlists and the tracks in each playlist
     if "playlists" in args.dump:
         logging.info("Loading playlists...")
-        playlist_data = spotify.list(
-            "users/{user_id}/playlists".format(user_id=me["id"]), {"limit": 50}
-        )
+        playlist_data = spotify.list("users/{user_id}/playlists".format(user_id=me["id"]), {"limit": 50})
         logging.info(f"Found {len(playlist_data)} playlists")
 
         # List all tracks in each playlist
         for playlist in playlist_data:
-            logging.info(
-                "Loading playlist: {name} ({tracks[total]} songs)".format(**playlist)
-            )
-            playlist["tracks"] = spotify.list(
-                playlist["tracks"]["href"], {"limit": 100}
-            )
+            logging.info("Loading playlist: {name} ({tracks[total]} songs)".format(**playlist))
+            playlist["tracks"] = spotify.list(playlist["tracks"]["href"], {"limit": 100})
         playlists += playlist_data
 
     # Write the file.
