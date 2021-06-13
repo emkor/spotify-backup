@@ -3,15 +3,26 @@ name = "spotify-backup"
 version = "0.0.1"
 description = "A Python script that exports all of your Spotify playlists."
 authors = ["emkor93 <emkor93@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/emkor/spotify-backup"
+repository = "https://github.com/emkor/spotify-backup"
+keywords = ["spotify", "playlist", "liked", "songs", "backup"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+mypy = "^0.902"
+black = "^21.6b0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-lastfm-backup = 'spotify_backup:cli_main'
+spotify-backup = 'spotify_backup:main'
+
+[tool.black]
+line-length = 120
+target-version = ['py37', 'py38', 'py39']
