@@ -1,4 +1,4 @@
-# spotify-backup ![CI](https://github.com/emkor/spotify-backup/workflows/CI/badge.svg)
+# spotify-backup ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/spotify-backup) ![CI](https://github.com/emkor/spotify-backup/workflows/CI/badge.svg)
 Fork of [caseychu/spotify-backup](https://github.com/caseychu/spotify-backup)
 
 Python CLI tool that exports all of your Spotify playlists and/or liked songs into CSV file
