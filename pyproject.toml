@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "spotify-backup"
-version = "0.0.1"
+version = "0.0.2"
 description = "A Python script that exports all of your Spotify playlists."
 authors = ["emkor93 <emkor93@gmail.com>"]
 readme = "README.md"

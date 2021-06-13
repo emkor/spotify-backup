@@ -1,14 +1,17 @@
 # spotify-backup
 Fork of [caseychu/spotify-backup](https://github.com/caseychu/spotify-backup)
 
-A Python CLI tool that exports all of your Spotify playlists and/or liked songs
+Python CLI tool that exports all of your Spotify playlists and/or liked songs into CSV file
 
 ## installation
 - pre-requisites: Python >=3.7, pip
-- command to install: `pip install spotify-backup`
-- TODO not published yet
+- command to install: `pip install spotify-backup` (dependency-free)
+- TODO not published yet to pypi.org
 
 ## usage
+TODO
+
+## output
 TODO
 
 ## options
@@ -31,4 +34,4 @@ optional arguments:
 
 ## known issues
 - collaborative playlists and playlist folders don't show up in the API, sadly.
-- tool downloads everything into memory, need to rewrite client in streaming manner
+- tool downloads everything into memory before writing to file, need to rewrite client and use streaming / generators
